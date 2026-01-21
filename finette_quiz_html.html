@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz : Ma Jolie, Ma Douce, Ma Chérie ?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "Un tricot parfait, c'est celui qui...",
+                answers: [
+                    { text: "Te fait te sentir comme dans un cocon douillet", finette: "douce", score: 3 },
+                    { text: "T'offre élégance et féminité sans effort", finette: "jolie", score: 3 },
+                    { text: "Te permet de briller et d'affirmer ton audace", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Dans un tricot : qu'est-ce qui t'attire le plus ?",
+                answers: [
+                    { text: "La laine : sentir sous mes doigts la douceur, le fluff. C'est tout ce qui compte !", finette: "douce", score: 3 },
+                    { text: "Le process tricot : des techniques variées, je veux pouvoir m'investir à 100% dans chaque maille et m'émerveiller à la voir grandir", finette: "jolie", score: 3 },
+                    { text: "Le design : WOW, c'est ce que je veux ressentir à chaque fois que je le regarderai ou l'enfilerai !", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Qu'est-ce qui t'est important dans une brassière tricotée ?",
+                answers: [
+                    { text: "Pourvue qu'elle soit douce pour ne jamais avoir à l'enlever", finette: "douce", score: 3 },
+                    { text: "Un ajustement parfait qui mette en valeur mon corps de rêve", finette: "jolie", score: 3 },
+                    { text: "Un maintien au top et un design qui ne passe pas inaperçu", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Comment aimerais-tu porter une brassière tricotée ?",
+                answers: [
+                    { text: "Sous un pull ou gilet oversize (mode cocooning)", finette: "douce", score: 3 },
+                    { text: "Sous un blazer ou avec des pièces chics", finette: "jolie", score: 3 },
+                    { text: "Assumée, visible, c'est une pièce mode", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Quel est ton niveau de patience dans un projet tricoté ?",
+                answers: [
+                    { text: "Je n'ai pas encore commencé que j'aimerais l'avoir déjà terminé (pas trop technique, juste du bonheur)", finette: "douce", score: 3 },
+                    { text: "J'aime les tricots qui demandent à la fois un peu de stimulation et des moments plus méditatifs comme le jersey", finette: "jolie", score: 3 },
+                    { text: "Je suis une tricoteuse de challenge, plus c'est compliqué, plus j'aime !", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Ton style personnel c'est plutôt...",
+                answers: [
+                    { text: "Doux et cosy comme une coupe de chocolat chaud par une soirée d'hiver en pyjama", finette: "douce", score: 3 },
+                    { text: "Intemporel et féminin, comme une Parisienne en trench-coat", finette: "jolie", score: 3 },
+                    { text: "Affirmé et graphique, comme une rock star qui ne demande pas la permission", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Quel est ton type de laine ?",
+                answers: [
+                    { text: "Une laine aérienne et voluptueuse, un brin Pompadour !", finette: "douce", score: 3 },
+                    { text: "Celle qui avance vite et bien sur les aiguilles, j'aime le flow", finette: "jolie", score: 3 },
+                    { text: "Celle que je n'ai pas encore tricotée, et que je meurs d'envie de découvrir", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Ta relation avec le tricot, c'est...",
+                answers: [
+                    { text: "Amoureuse : j'aime à la folie les laines, je tricote chaque maille passionnément", finette: "douce", score: 3 },
+                    { text: "Amicale : mon tricot et moi on se retrouve pour des séances zen et sans prise de tête… Sinon, next !", finette: "jolie", score: 3 },
+                    { text: "Scolaire : je note tout, j'adore découvrir de nouvelles techniques, une erreur ? je recommence !", finette: "cherie", score: 3 }
+                ]
+            },
+            {
+                question: "Si tu devais porter ta brassière sans rien par-dessus...",
+                answers: [
+                    { text: "Jamais de la vie, c'est ma bulle intime et je la garde précieusement", finette: "douce", score: 3 },
+                    { text: "Pourquoi pas en vacances sur mon tapis de yoga ou à la plage", finette: "jolie", score: 3 },
+                    { text: "Carrément ! C'est une pièce à part entière, je la porte assumée", finette: "cherie", score: 3 }
+                ]
+            }
+        ];
+
+        const results = {
+            douce: {
+                name: "Ma Douce",
+                description: "Tu es une âme cosy ! Tu cherches le confort ultime et la douceur extrême. Cette brassière ultra-douce en alpaga et soie est ta pièce parfaite pour te sentir enveloppée et bien. Idéale pour le yoga, le loungewear ou sous un pull oversize. Pure sensation de bien-être !",
+                color: "from-pink-100 to-pink-50",
+                image: "https://www.ravelry.com/patterns/library/finette-ma-douce"
+            },
+            jolie: {
+                name: "Ma Jolie",
+                description: "Tu es l'élégance incarnée ! Tu aimes les pièces féminines, sensibles et bien ajustées. Cette brassière ultra-fine en alpaca et mérinos, avec son jeu subtil de transparence, épousera tes courbes parfaitement. À porter sous un blazer ou en pièce visible pour un look raffiné.",
+                color: "from-purple-100 to-purple-50",
+                image: "https://www.ravelry.com/patterns/library/finette-ma-jolie"
+            },
+            cherie: {
+                name: "Ma Chérie",
+                description: "Tu es une badass ! Tu aimes affirmer ton style avec audace et confiance. Cette brassière avec ses panneaux de dentelle graphique est TON pièce. Avec son maintien assuré et ses bretelles larges, tu peux la porter assumée. C'est une statement piece !",
+                color: "from-slate-200 to-slate-100",
+                image: null
+            }
+        };
+
+        // Shuffle answers function
+        function shuffleAnswers(answers) {
+            return [...answers].sort(() => Math.random() - 0.5);
+        }
+
+        // Prepare shuffled questions
+        const shuffledQuestions = questions.map(q => ({
+            ...q,
+            answers: shuffleAnswers(q.answers)
+        }));
+
+        let currentQuestion = 0;
+        let scores = { douce: 0, jolie: 0, cherie: 0 };
+
+        function handleAnswer(finette, score) {
+            scores[finette] += score;
+            currentQuestion++;
+            
+            if (currentQuestion < shuffledQuestions.length) {
+                render();
+            } else {
+                showResult();
+            }
+        }
+
+        function getResult() {
+            return Object.keys(scores).reduce((a, b) =>
+                scores[a] > scores[b] ? a : b
+            );
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            scores = { douce: 0, jolie: 0, cherie: 0 };
+            render();
+        }
+
+        function showResult() {
+            const resultKey = getResult();
+            const result = results[resultKey];
+            const progress = 100;
+
+            document.getElementById('app').innerHTML = `
+                <div class="min-h-screen bg-gradient-to-br ${result.color} flex items-center justify-center p-4">
+                    <div class="max-w-lg w-full bg-white rounded-2xl shadow-2xl p-8 text-center">
+                        <h2 class="text-4xl font-bold mb-4 text-gray-800">
+                            ${result.name}
+                        </h2>
+                        <div class="w-full h-64 rounded-xl mb-6 overflow-hidden bg-gray-200 flex items-center justify-center">
+                            ${result.image ? 
+                                `<img src="${result.image}" alt="${result.name}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                                 <span class="text-gray-400">Image de ${result.name}</span>` 
+                                : `<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-slate-300 to-slate-400">
+                                    <div class="text-white text-center px-4">
+                                        <p class="text-lg font-bold mb-2">Ma Chérie arrive très bientôt !</p>
+                                        <p class="text-sm">Patron disponible le 5 février 2026</p>
+                                    </div>
+                                  </div>`
+                            }
+                        </div>
+                        <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                            ${result.description}
+                        </p>
+                        <button onclick="resetQuiz()" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-bold py-3 px-8 rounded-lg transition">
+                            ↻ Refaire le quiz
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function render() {
+            const progress = ((currentQuestion) / shuffledQuestions.length) * 100;
+            const question = shuffledQuestions[currentQuestion];
+
+            document.getElementById('app').innerHTML = `
+                <div class="min-h-screen bg-gradient-to-br from-amber-50 via-white to-pink-50 flex items-center justify-center p-4">
+                    <div class="max-w-2xl w-full">
+                        <!-- Header -->
+                        <div class="text-center mb-12">
+                            <h1 class="text-5xl font-bold text-gray-800 mb-2">
+                                Quiz : Ma Jolie, Ma Douce, Ma Chérie ?
+                            </h1>
+                            <p class="text-lg text-gray-600">
+                                Découvres quelle finette est faite pour toi
+                            </p>
+                        </div>
+
+                        <!-- Progress bar -->
+                        <div class="mb-8">
+                            <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                <span>Question ${currentQuestion + 1} sur ${shuffledQuestions.length}</span>
+                                <span>${Math.round(progress)}%</span>
+                            </div>
+                            <div class="w-full bg-gray-300 rounded-full h-2">
+                                <div
+                                    class="bg-gradient-to-r from-amber-400 to-pink-400 h-2 rounded-full transition-all duration-300"
+                                    style="width: ${progress}%"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Question -->
+                        <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-8">
+                                ${question.question}
+                            </h2>
+
+                            <!-- Answers -->
+                            <div class="space-y-3">
+                                ${question.answers.map((answer, index) => `
+                                    <button
+                                        onclick="handleAnswer('${answer.finette}', ${answer.score})"
+                                        class="w-full text-left p-4 border-2 border-gray-200 rounded-lg hover:border-amber-400 hover:bg-amber-50 transition group"
+                                    >
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-medium text-gray-800 group-hover:text-amber-700">
+                                                ${answer.text}
+                                            </span>
+                                            <span class="text-gray-400 group-hover:text-amber-400 transition">›</span>
+                                        </div>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initial render
+        render();
+    </script>
+</body>
+</html>
