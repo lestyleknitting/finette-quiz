@@ -164,14 +164,8 @@
                         </h2>
                         <div class="w-full h-64 rounded-xl mb-6 overflow-hidden bg-gray-200 flex items-center justify-center">
                             ${result.image ? 
-                                `<img src="${result.image}" alt="${result.name}" class="w-full h-full object-cover" onerror="this.style.display='none'">
-                                 <span class="text-gray-400">Image de ${result.name}</span>` 
-                                : `<div class="flex items-center justify-center w-full h-full bg-gradient-to-br from-slate-300 to-slate-400">
-                                    <div class="text-white text-center px-4">
-                                        <p class="text-lg font-bold mb-2">Ma Chérie arrive très bientôt !</p>
-                                        <p class="text-sm">Patron disponible le 5 février 2026</p>
-                                    </div>
-                                  </div>`
+                                `<img src="${result.image}" alt="${result.name}" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=\'text-gray-400\'>Image de ${result.name}</span>'">`
+                                : `<span class="text-gray-400">Image de ${result.name}</span>`
                             }
                         </div>
                         <p class="text-lg text-gray-700 mb-8 leading-relaxed">
